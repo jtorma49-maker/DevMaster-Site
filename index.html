@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevMaster | Software de Elite</title>
+    <meta name="description" content="Desenvolvimento de sistemas personalizados, automação e soluções SaaS em Sinop - MT. Transforme seu negócio com a DevMaster.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0055ff;
+            --dark: #0a0b10;
+            --dark-accent: #161b22;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --whatsapp: #25d366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--dark); color: #e6edf3; line-height: 1.6; overflow-x: hidden; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        header { 
+            background: rgba(10, 11, 16, 0.8); 
+            backdrop-filter: blur(10px); 
+            padding: 1.2rem 8%; 
+            position: fixed; width: 100%; top: 0; 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .logo { font-size: 1.6rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 25px; }
+        nav ul li a { color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        nav ul li a:hover { color: var(--primary); }
+
+        /* Hero com Imagem */
+        .hero { 
+            height: 100vh; 
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 0 8%;
+            gap: 40px;
+            background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.1), transparent);
+        }
+        .hero-content { text-align: left; }
+        .hero h1 { font-size: 3.8rem; margin-bottom: 20px; font-weight: 900; line-height: 1.1; color: #fff; }
+        .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.2rem; color: #8b949e; margin-bottom: 40px; max-width: 550px; }
+        
+        .hero-image { position: relative; display: flex; justify-content: center; }
+        .hero-image img { 
+            width: 100%; 
+            max-width: 600px; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-main { 
+            background: var(--gradient); color: #fff; padding: 18px 40px; border-radius: 50px; 
+            text-decoration: none; font-weight: bold; transition: 0.4s; 
+            box-shadow: 0 10px 20px rgba(0, 85, 255, 0.2); border: none; display: inline-block;
+        }
+        .btn-main:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 212, 255, 0.4); }
+
+        /* Resto do CSS... */
+        .stats { display: flex; justify-content: space-around; flex-wrap: wrap; background: var(--dark-accent); padding: 60px 8%; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .stat-item { text-align: center; padding: 20px; }
+        .stat-item h2 { font-size: 2.5rem; color: var(--primary); }
+        .stat-item p { color: #8b949e; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; }
+
+        section { padding: 100px 8%; }
+        .section-title { text-align: center; font-size: 2.8rem; margin-bottom: 70px; font-weight: 800; }
+        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: var(--dark-accent); padding: 45px; border-radius: 24px; transition: 0.4s; border: 1px solid rgba(255,255,255,0.05); }
+        .card:hover { border-color: var(--primary); background: linear-gradient(to bottom right, var(--dark-accent), #1c2128); }
+        .card i { font-size: 3rem; margin-bottom: 25px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .contact { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; background: #0d1117; }
+        .contact-form { background: var(--dark-accent); padding: 50px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .contact-form input, .contact-form select, .contact-form textarea { width: 100%; padding: 15px; margin-bottom: 20px; background: #0d1117; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: #fff; outline: none; }
+        .contact-form button { width: 100%; padding: 20px; background: var(--gradient); border: none; color: #fff; font-weight: 800; border-radius: 12px; cursor: pointer; transition: 0.3s; }
+
+        .whatsapp-float { position: fixed; bottom: 40px; right: 40px; background: var(--whatsapp); color: #fff; width: 65px; height: 65px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 35px; z-index: 1000; text-decoration: none; box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3); transition: 0.4s; }
+
+        @media (max-width: 1000px) {
+            .hero { grid-template-columns: 1fr; text-align: center; height: auto; padding-top: 150px; padding-bottom: 80px; }
+            .hero-content { display: flex; flex-direction: column; align-items: center; }
+            .hero-image { display: none; }
+            .contact { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://api.whatsapp.com/send?phone=5566999035203&text=Olá! Gostaria de um orçamento para um sistema." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <header>
+        <div class="logo">DevMaster_</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Início</a></li>
+                <li><a href="#servicos">Sistemas</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content reveal">
+            <h1>Sistemas <span>Inteligentes</span> que escalam seu negócio.</h1>
+            <p>Transformamos processos manuais em ativos digitais de alta performance com tecnologia de ponta.</p>
+            <a href="#contato" class="btn-main">Começar Agora</a>
+        </div>
+        <div class="hero-image reveal">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Desenvolvimento de Software">
+        </div>
+    </section>
+
+    <div class="stats reveal">
+        <div class="stat-item"><h2>+50</h2><p>Sistemas Entregues</p></div>
+        <div class="stat-item"><h2>100%</h2><p>Disponibilidade Cloud</p></div>
+        <div class="stat-item"><h2>24/7</h2><p>Suporte Técnico</p></div>
+    </div>
+
+    <section id="servicos">
+        <h2 class="section-title reveal">Nossas <span>Soluções</span></h2>
+        <div class="service-grid">
+            <div class="card reveal"><i class="fas fa-chart-line"></i><h3>Controle Financeiro</h3><p>Fluxo de caixa, DRE automático e gestão de inadimplência.</p></div>
+            <div class="card reveal"><i class="fas fa-boxes-stacked"></i><h3>Controle de Estoque</h3><p>Gestão de inventário inteligente com alerta de reposição.</p></div>
+            <div class="card reveal"><i class="fas fa-cash-register"></i><h3>Controle de Vendas</h3><p>PDV completo integrado com seu contrele de estoque.</p></div>
+            <div class="card reveal"><i class="fas fa-users-gear"></i><h3>Gestão de Equipe</h3><p>Controle de produtividade e permissões de acesso.</p></div>
+            
+            <div class="card reveal"><i class="fas fa-file-signature"></i><h3>Gestão Documental</h3><p>Segurança total para seus contratos e documentos digitais em nuvem.</p></div>
+            <div class="card reveal"><i class="fas fa-layer-group"></i><h3>Plataformas SaaS</h3><p>Criamos seu software como serviço para escalar seu modelo de negócio.</p></div>
+        </div>
+    </section>
+
+    <section class="contact" id="contato">
+        <div class="contact-info reveal">
+            <h2>Pronto para <span>digitalizar</span> seu negócio?</h2>
+            <p>Fale com um especialista em Sorriso - MT e transforme sua empresa hoje!</p>
+            <div style="margin-top: 40px;">
+                <p><strong>WhatsApp:</strong> (66) 9 9903-5203</p>
+            </div>
+        </div>
+        <div class="contact-form reveal">
+            <form id="meuForm">
+                <input type="text" id="empresa" placeholder="Nome da Empresa" required>
+                <input type="email" id="email" placeholder="E-mail" required>
+                <select id="dor">
+                    <option disabled selected>Qual sua maior dor hoje?</option>
+                    <option>Desorganização Financeira</option>
+                    <option>Preciso de um SaaS novo</option>
+                </select>
+                <textarea id="mensagem" rows="4" placeholder="Fale sobre seu projeto..."></textarea>
+                <button type="submit">Solicitar Diagnóstico Gratuito</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 DevMaster | Tecnologia que Impulsiona Negócios</p>
+    </footer>
+
+    <script>
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // WhatsApp Form
+        document.getElementById('meuForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const empresa = document.getElementById('empresa').value;
+            const dor = document.getElementById('dor').value;
+            const texto = `Olá! Gostaria de um diagnóstico.%0A*Empresa:* ${empresa}%0A*Problema:* ${dor}`;
+            window.open(`https://api.whatsapp.com/send?phone=5566999035203&text=${texto}`, '_blank');
+        });
+    </script>
+</body>
+</html>
